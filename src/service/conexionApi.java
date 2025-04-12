@@ -1,6 +1,8 @@
 package service;
 
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,13 +12,15 @@ import java.net.http.HttpResponse;
 /*Clase responsable de la comunicación con API externas*/
 public class conexionApi {
 
-    static String API_KEY = System.getenv("APIKEY");
+    private final String API_KEY;
     private static final String URL_BASE = "https://v6.exchangerate-api.com/v6/";
 
     private final HttpClient client;
 
     /*Constructor que inicializa el cliente Http*/
     public conexionApi() {
+        Dotenv dotenv = Dotenv.load();
+        this.API_KEY = dotenv.get("APIKEY");
         this.client = HttpClient.newHttpClient();
     }
 
@@ -25,7 +29,8 @@ public class conexionApi {
      *
      * @param client
      */
-    public conexionApi(HttpClient client) {
+    public conexionApi(String apiKey, HttpClient client) {
+        API_KEY = apiKey;
         this.client = client;
     }
 

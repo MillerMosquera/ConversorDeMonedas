@@ -1,0 +1,1 @@
+package modelo;public record conversionDTO(String base_code,                            String target_code,                            double cantidad,                            double conversion_result) {}
